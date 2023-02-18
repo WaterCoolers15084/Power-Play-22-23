@@ -201,40 +201,47 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
         }
 
         sleep(2000);
-//        closeClaw();
-//        sleep(2000);
-//        runArmUpForTime(1000);
-//        sleep(2000);
-        //strafe forward
-//        runToPosition(-4000, -4000, 4000, 4000, 0.5);
+        closeClaw();
+        sleep(2000);
+        runArmUpForTime(3000);
+        brakeArm();
+        sleep(2000);
 
-        //park code
         //strafe forward
         runToPosition(-1800, -1800, 1800, 1800, 0.5);
 
         //strafe slightly backward
         runToPosition(200, 200, -200, -200, 0.5);
 
-//        //turn towards stack
-//        runToPosition(-600, 600, -600, 600, 0.5);
-//
-//        //drop cone
-//        openClaw();
-//
-//        //turn back
-//        runToPosition(600, -600, 600, -600, 0.5);
-
-        //strafe back slightly
-//        runToPosition(100, 100, -100, -100, 0.5);
-
-        if(tagId == LEFT) {
-            runToPosition(-1800, 1800, -1800, 1800, 0.5);
-        }else if(tagId == RIGHT) {
-            runToPosition(1200, -1200, 1200, -1200, 0.5);
-        }
-
         //turn to face front
         runToPosition(-1100, -1100, -1100, -1100, 0.5);
+
+        //strafe slightly towards mid pole
+        runToPosition(775, 775, -775, -775, 0.5);
+
+        //move forward to pole
+        runToPosition(250, -250, 250, -250, 0.5);
+
+
+        sleep(2000);
+
+        //open claw
+        openClaw();
+        sleep(4000);
+
+        //back away from pole
+        runToPosition(-250, 250, -250, 250, 0.5);
+
+        //park
+        if(tagId == LEFT) {
+            runToPosition(-2100, -2100, 2100, 2100, 0.5);
+        }else if(tagId == RIGHT) {
+            runToPosition(900, 900, -900, -900, 0.5);
+        }else if(tagId == MIDDLE) {
+            runToPosition(-900, -900, 900, 900, 0.5);
+        }
+
+        floatArm();
 
         //close claw
 //        closeClaw();
@@ -296,11 +303,21 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
         arm2.setPower(0.5);
         sleep(ms);
         arm.setPower(0);
-        arm.setPower(0);
+        arm2.setPower(0);
+    }
+
+    void brakeArm() {
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    void floatArm() {
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        arm2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 
     void openClaw() {
-        claw.setPosition(0.55);
+        claw.setPosition(0.1);
     }
 
     void closeClaw() {
