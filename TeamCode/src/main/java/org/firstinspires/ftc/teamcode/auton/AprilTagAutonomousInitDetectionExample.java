@@ -201,7 +201,40 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
         }
 
         sleep(2000);
-        runToPosition(3000000, 3000000, -3000000, -3000000, 0.5);
+//        closeClaw();
+//        sleep(2000);
+//        runArmUpForTime(1000);
+//        sleep(2000);
+        //strafe forward
+//        runToPosition(-4000, -4000, 4000, 4000, 0.5);
+
+        //park code
+        //strafe forward
+        runToPosition(-1800, -1800, 1800, 1800, 0.5);
+
+        //strafe slightly backward
+        runToPosition(200, 200, -200, -200, 0.5);
+
+//        //turn towards stack
+//        runToPosition(-600, 600, -600, 600, 0.5);
+//
+//        //drop cone
+//        openClaw();
+//
+//        //turn back
+//        runToPosition(600, -600, 600, -600, 0.5);
+
+        //strafe back slightly
+//        runToPosition(100, 100, -100, -100, 0.5);
+
+        if(tagId == LEFT) {
+            runToPosition(-1800, 1800, -1800, 1800, 0.5);
+        }else if(tagId == RIGHT) {
+            runToPosition(1200, -1200, 1200, -1200, 0.5);
+        }
+
+        //turn to face front
+        runToPosition(-1100, -1100, -1100, -1100, 0.5);
 
         //close claw
 //        closeClaw();
@@ -235,13 +268,13 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 //        while (opModeIsActive()) {sleep(20);}
     }
 
-    void runToPosition(int frontLeftpos, int frontRightPos, int backLeftPos, int backRightPos, double power) {
+    void runToPosition(int frontLeftPos, int frontRightPos, int backLeftPos, int backRightPos, double power) {
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        frontLeft.setTargetPosition(frontLeftpos);
+        frontLeft.setTargetPosition(frontLeftPos);
         frontRight.setTargetPosition(frontRightPos);
         backLeft.setTargetPosition(backLeftPos);
         backRight.setTargetPosition(backRightPos);
@@ -255,6 +288,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
         frontRight.setPower(power);
         backLeft.setPower(power);
         backRight.setPower(power);
+        while(frontLeft.isBusy() && frontRight.isBusy() && backLeft.isBusy() && backRight.isBusy()) {}
     }
 
     void runArmUpForTime(int ms) {
